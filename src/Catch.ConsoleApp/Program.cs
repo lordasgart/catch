@@ -6,7 +6,9 @@ namespace Catch.ConsoleApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Hello Catch!");
+            Console.WriteLine("I will find files for you on the command line");
+            Console.WriteLine("and output the results like Agent Ransack");
         }
     }
 }

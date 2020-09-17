@@ -2,7 +2,8 @@
 
 namespace Catch
 {
-    public class Class1
+    public class Searcher
     {
+        
     }
 }

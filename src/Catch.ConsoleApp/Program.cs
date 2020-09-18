@@ -14,7 +14,8 @@ namespace Catch.ConsoleApp
 
             foreach (var result in results)
             {
-                Console.WriteLine($"file://{result.FileInfo.FullName}");
+                Console.WriteLine($"file://{result.FileInfo.FullName.Replace(" ","%20")}");
+                Console.WriteLine($"{result.FileInfo.FullName}");
                 foreach (var lineHit in result.LineHits)
                 {
                     Console.WriteLine($"  {lineHit.LineNumber}: {lineHit.LineContent}");

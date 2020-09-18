@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Abstractions;
+using System.Linq;
+using Shell.NET;
 
 namespace Catch.ConsoleApp
 {
@@ -34,13 +36,44 @@ namespace Catch.ConsoleApp
 
             foreach (var result in results)
             {
+                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine($"file://{result.FileInfo.FullName.Replace(" ","%20")}");
+                Console.ResetColor();
                 Console.WriteLine($"{result.FileInfo.FullName}");
+                
                 foreach (var lineHit in result.LineHits)
                 {
-                    Console.WriteLine($"  {lineHit.LineNumber}: {lineHit.LineContent}");
+                    Console.ResetColor();
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.Write($"  {lineHit.LineNumber}: ");
+                    Console.ResetColor();
+                    Console.WriteLine($"{lineHit.LineContent.Trim()}");
                 }
             }
+        }
+        
+        static void Main2(string[] args)
+        {
+            Console.WriteLine();
+
+            var colors = Enum.GetValues(typeof(ConsoleColor)).Cast<ConsoleColor>().ToList();
+            foreach (var fore in colors)
+            {
+                foreach (var back in colors)
+                {
+                    Console.ForegroundColor = fore;
+                    Console.BackgroundColor = back;
+                    Console.Write(" *** ");
+
+                    Console.ResetColor();
+                    Console.Write("  ");
+                }
+
+                Console.WriteLine();
+            }
+
+            Console.WriteLine();
         }
     }
 }

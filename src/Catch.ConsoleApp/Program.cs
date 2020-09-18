@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO.Abstractions;
 
 namespace Catch.ConsoleApp
 {
@@ -6,12 +7,19 @@ namespace Catch.ConsoleApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello I am \"Catch\"!");
-            Console.WriteLine();
-            Console.WriteLine("I will find files for you on the command line");
-            Console.WriteLine("and output the results like Agent Ransack");
+            IFileSystem fileSystem = new FileSystem();
+            var fileSystemReader = new SimpleFileSystemReader(fileSystem);
+            var searcher = new Searcher(fileSystemReader);
+            var results = searcher.Search("/home/lordasgart/Nextcloud/Notes", "*.md", "git credentials");
 
-            Searcher searcher = new Searcher();
+            foreach (var result in results)
+            {
+                Console.WriteLine($"file://{result.FileInfo.FullName}");
+                foreach (var lineHit in result.LineHits)
+                {
+                    Console.WriteLine($"  {lineHit.LineNumber}: {lineHit.LineContent}");
+                }
+            }
         }
     }
 }

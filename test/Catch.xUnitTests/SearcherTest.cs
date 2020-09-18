@@ -1,5 +1,7 @@
 ﻿using FluentAssertions;
 using System;
+using System.IO.Abstractions;
+using FakeItEasy;
 using Xunit;
 
 namespace Catch.xUnitTests
@@ -9,7 +11,7 @@ namespace Catch.xUnitTests
         [Fact]
         public void CtorTest()
         {
-            var searcher = new Searcher();
+            var searcher = new Searcher(A.Fake<IFileSystemReader>());
             searcher.Should().NotBeNull();
         }
     }
